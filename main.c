@@ -50,24 +50,14 @@ void printTab(int w, int h, char* tab)
     }
 }
 
-// void start(int _w, int _h, char* tab)
-// {
-//     board = tab;
-//     w = _w;
-//     h = _h;
+extern void start(int, int, char*);
+extern void run_once();
 
-//     temp_board = malloc(_w * _h * sizeof(char));
-
-//     for (int i = 0; i < _w * _h; ++i)
-//     {
-//         temp_board[i] = board[i];
-//     }
-// }
-
-extern int start(int, int, char*);
-
-int checkNeighbours(int i, int j)
+int check_neighbours(char* temp_board, int i, int j)
 {
+    int w = 100;
+    int h = 24;
+    // printf("%c %d %d %d\n", temp_board[i * 14 + j], i * 14 + j, i, j);
     int count = 0;
     int left_index = (i * w) + j - 1;
     int right_index = (i * w) + j + 1;
@@ -117,38 +107,38 @@ int checkNeighbours(int i, int j)
     return count;
 }
 
-void runOnce()
-{
-    for (int i = 0; i < h; ++i)
-    {
-        for (int j = 0; j < w; ++j)
-        {
-            int living_neighbours = checkNeighbours(i, j);
-            int index = i * w + j;
-            if (living_neighbours == 3)
-            {
-                board[index] = '*';
-            }
-            else if (living_neighbours == 2 && temp_board[index] == '*')
-            {
-                board[index] = '*';
-            }
-            else
-            {
-                board[index] = ' ';
-            }
-        }
-    }
+// void runOnce()
+// {
+//     for (int i = 0; i < h; ++i)
+//     {
+//         for (int j = 0; j < w; ++j)
+//         {
+//             int living_neighbours = checkNeighbours(i, j);
+//             int index = i * w + j;
+//             if (living_neighbours == 3)
+//             {
+//                 board[index] = '*';
+//             }
+//             else if (living_neighbours == 2 && temp_board[index] == '*')
+//             {
+//                 board[index] = '*';
+//             }
+//             else
+//             {
+//                 board[index] = ' ';
+//             }
+//         }
+//     }
 
-    for (int i = 0; i < h; ++i)
-    {
-        for (int j = 0; j < w; ++j)
-        {
-            int index = i * w + j;
-            temp_board[index] = board[index];
-        }
-    }
-}
+//     for (int i = 0; i < h; ++i)
+//     {
+//         for (int j = 0; j < w; ++j)
+//         {
+//             int index = i * w + j;
+//             temp_board[index] = board[index];
+//         }
+//     }
+// }
 
 int main(int argc, char** argv)
 {
@@ -158,18 +148,14 @@ int main(int argc, char** argv)
     if (argc == 2)
     {
         loadTab(argv[1], &_w, &_h, &tab);
-        // printf("%d", start(_w, _h, tab));
-        // printf("\n%d", tab);
-        char* a = (char*)start(_w, _h, tab);
-
-        printTab(_w, _h, a);
-        // for (int i = 0; i < 100000; ++i)
-        // {
-        //     printf("---------------\n");
-        //     printTab(w, h, temp_board);
-        //     runOnce();
-        //     usleep(100000);
-        // }
+        start(_w, _h, tab);
+        for (int i = 0; i < 100000; ++i)
+        {
+            printf("---------------\n");
+            printTab(_w, _h, tab);
+            run_once();
+            usleep(200000);
+        }
 
         // free(tab);
     }
