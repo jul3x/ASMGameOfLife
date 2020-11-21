@@ -16,7 +16,9 @@ start:                      ;Procedure start (entry point)
         mov [temp_board], rax       ; rax has new pointer
         pop rdi                     ; rdi has size of new tab
         mov rsi, [board]            ; rsi has original pointer
+
 init_tmp:
+        dec rdi
         cmp rdi, 0
         jle end_init
         mov r8, [rsi]

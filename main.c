@@ -79,8 +79,6 @@ int main(int argc, char** argv)
             // }
             usleep(200000);
         }
-
-        // free(tab);
     }
     else
     {
