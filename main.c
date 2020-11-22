@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int w = 0, h = 0;
-char* board = NULL;
-char* temp_board = NULL;
-
 void loadTab(const char* filename, int* w, int* h, char** tab)
 {
     FILE *input;
@@ -51,32 +47,23 @@ void printTab(int w, int h, char* tab)
 }
 
 extern void start(int, int, char*);
-extern void run_once();
-extern int check_neighbours(int i, int j);
+extern void run(int steps);
 
 
 int main(int argc, char** argv)
 {
     char* tab;
-    int _w = 0, _h = 0;
+    int w = 0, h = 0;
 
     if (argc == 2)
     {
-        loadTab(argv[1], &_w, &_h, &tab);
-        start(_w, _h, tab);
+        loadTab(argv[1], &w, &h, &tab);
+        start(w, h, tab);
         for (int i = 0; i < 100000; ++i)
         {
             printf("---------------\n");
-            printTab(_w, _h, tab);
-            run_once();
-            // for (int x = 0; x < _w; ++x)
-            // {
-            //     for (int y = 0; y < _w; ++y)
-            //     {
-            //         printf("%d", check_neighbours(x, y));
-            //     }
-            //     printf("\n");
-            // }
+            printTab(w, h, tab);
+            run(1);
             usleep(200000);
         }
     }

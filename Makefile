@@ -5,3 +5,6 @@ game: main.c game.o
 
 game.o: game.asm
 	nasm -f elf64 -F dwarf -g game.asm
+
+clean: all
+	rm *.o game
