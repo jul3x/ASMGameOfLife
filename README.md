@@ -1,5 +1,5 @@
 # ASMGameOfLife
-Conway's Game of Life implemented in NAMS x64
+Conway's Game of Life implemented in NASM x64
 
 ## Structure
 
