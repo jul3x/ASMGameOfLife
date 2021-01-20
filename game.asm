@@ -5,24 +5,23 @@
 start:
         push rbp
         mov rbp, rsp
-        mov [width], rdi
-        mov [heigth], rsi
+        mov [width], edi
+        mov [heigth], esi
         mov [board], rdx            ; init values
-        imul rdi, rsi               ; size of temp_board
+        imul edi, esi               ; size of temp_board
         push rdi
         call malloc
         mov [temp_board], rax       ; rax has new pointer
         pop rdi                     ; rdi has size of board
         mov rsi, [board]            ; rsi has original pointer
 init_tmp:                           ; copy board to temp_board
-        dec rdi
-        cmp rdi, 0
+        cmp edi, 0
         jle end_init
-        mov r8, [rsi]
-        mov [rax], r8               ; copy original tab
+        mov r8b, [rsi]
+        mov byte [rax], r8b         ; copy original tab
         inc rax
         inc rsi
-        dec rdi
+        dec edi
         jmp init_tmp
 end_init:
         pop rbp
@@ -95,8 +94,8 @@ heigth_loop_end:                    ; r8 - end of board tab ; r9 - end of temp_b
 copy:                               ; rbx - index
         cmp rbx, 0
         jle end_copy
-        mov rax, [r8]
-        mov [r9], rax
+        mov al, [r8]
+        mov byte [r9], al
         dec r8
         dec r9
         dec rbx
